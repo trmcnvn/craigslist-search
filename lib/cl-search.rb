@@ -4,7 +4,7 @@ require "feedjira"
 
 class ClSearch
   # URL used for searching
-  SEARCH_URL = "http://{city}.craigslist.org/search/{type}?format=rss&query="
+  SEARCH_URL = "http://{city}.craigslist.org/search/{type}?sort=date&format=rss&query="
 
   # List of cities that are our search scope
   CITIES = %w(
@@ -124,26 +124,27 @@ class ClSearch
   end
 
   def search(type, keyword)
-    urls, results = [], []
+    urls, results = [], {}
     @scope.each do |city|
       # setup url
       url = SEARCH_URL.sub("{city}", city)
       url = url.sub("{type}", type)
       url = "#{url}#{keyword}"
-      urls << url
+      urls << [city, url]
     end
 
-    feeds = Feedjira::Feed.fetch_and_parse(urls)
-    urls.each do |url|
-      feed = feeds[url]
+    feeds = Feedjira::Feed.fetch_and_parse(urls.collect{|x| x[1] })
+    urls.each do |arr|
+      feed = feeds[arr[1]]
       next if feed.is_a?(Fixnum) # no results
+      results[arr[0]] = []
       feed.entries.each do |entry|
         obj = {
           title: entry.title,
           date: entry.published,
-          link: entry.url
+          link: entry.url,
         }
-        results.push(obj)
+        results[arr[0]] << obj
       end
     end
 
