@@ -1,8 +1,6 @@
 require "sinatra"
 require "./lib/cl-search"
 
-set :bind, '192.168.0.10'
-
 get "/" do
   @cities = ClSearch::CITIES
   erb :index
