@@ -129,7 +129,7 @@ class ClSearch
       # setup url
       url = SEARCH_URL.sub("{city}", city)
       url = url.sub("{type}", type)
-      url = "#{url}#{keyword}&_=#{Random.new.rand(1_000_000)}"
+      url = "#{url}#{keyword}"
       urls << [city, url]
     end
 
