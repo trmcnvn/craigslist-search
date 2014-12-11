@@ -1,0 +1,18 @@
+<!-- content -->
+<div class="container search">
+  <div class="col-sm-12">
+    <h4>Search Results</h4>
+    <ul>
+      <% @results.each do |item| %>
+        <li>
+          <span class="date js-date" data-date="<%= item[:date] %>"></span>
+          <span class="title">
+            <a href="<%= item[:link] %>" target="_blank">
+              <%= item[:title] %>
+            </a>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<!-- content -->
+<div class="container search">
+  <div class="col-sm-6 col-sm-offset-3">
+    <form action="/search" method="POST">
+      <div class="form-group">
+        <label>Keyword</label>
+        <input name="keyword" type="text" class="form-control" placeholder="Keyword">
+      </div>
+      <div class="form-group">
+        <label>Gig type</label>
+        <select name="gig" class="form-control">
+          <option value="crg">Creative</option>
+          <option value="cpg">Computer</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input name="all_cities" type="checkbox" class="js-checkbox" checked="checked">
+          Search all cities
+        </label>
+      </div>
+      <div class="form-group">
+        <select name="cities[]" class="form-control js-select" disabled multiple>
+          <% @cities.each do |city| %>
+          <option value="<%= city %>"><%= city %></option>
+          <% end %>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Search</button>
+    </form>
+  </div>
+</div>
