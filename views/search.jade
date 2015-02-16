@@ -1,0 +1,15 @@
+extends ./layout.jade
+
+block content
+  .container.search
+    .col-sm-12
+      h4 Search Results
+      each value, key in results
+        h5= key
+        ul
+          each item in value
+            li
+              span.date.js-date(data-date="#{item['date']}")
+              span.title
+                a(href="#{item['link']}" target="_blank")
+                  | &nbsp; #{item['title']}
