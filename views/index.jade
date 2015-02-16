@@ -1,0 +1,23 @@
+extends ./layout.jade
+
+block content
+  .container.search
+    .col-sm-6.col-sm-offset-3
+      form(action="/search" method="POST")
+        .form-group
+          label Keyword
+          input.form-control(name="keyword" type="text" placeholder="Keyword")
+        .form-group
+          label Gig type
+          select.form-control(name="gig")
+            option(value="crg") Creative
+            option(value="cpg") Computer
+        .checkbox
+          label
+          input.js-checkbox(name="all_cities" type="checkbox" checked="checked")
+          | Search all cities
+        .form-group
+          select.form-control.js-select(name="cities[]" disabled="disabled" multiple="multiple")
+            each city in cities
+              option(value="#{city}")= city
+        button.btn.btn-primary.btn-block(type="submit") Search
